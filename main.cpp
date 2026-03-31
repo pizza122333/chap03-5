@@ -1,0 +1,35 @@
+#include <opencv2/opencv.hpp>
+#include <iostream>
+
+using namespace cv;
+using namespace std;
+
+int main() {
+    // 1. 영상을 그레이스케일로 불러오기 (또는 컬러로 읽고 cvtColor 사용)
+    Mat img = imread("lenna.bmp", IMREAD_GRAYSCALE);
+
+    if (img.empty()) {
+        cout << "영상을 로드할 수 없습니다!" << endl;
+        return -1;
+    }
+
+    // 영상의 중심 좌표 계산
+    int mid_row = img.rows / 2;
+    int mid_col = img.cols / 2;
+
+    // 2. 가로선 그리기 (중간 행의 모든 열을 255로 설정)
+    for (int i = 0; i < img.cols; i++) {
+        img.at<uchar>(mid_row, i) = 255;
+    }
+
+    // 3. 세로선 그리기 (중간 열의 모든 행을 255로 설정)
+    for (int i = 0; i < img.rows; i++) {
+        img.at<uchar>(i, mid_col) = 255;
+    }
+
+    // 4. 결과 출력
+    imshow("Gray 4-Division", img);
+    waitKey(0);
+
+    return 0;
+}
